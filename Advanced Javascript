@@ -1,0 +1,34 @@
+// Advanced Logic for Babbage problem
+
+document.getElementById('startBtn').addEventListener('click', () => {
+  const targetDigits = parseInt(document.getElementById('targetDigits').value);
+  const patternDigits = parseInt(document.getElementById('patternDigits').value);
+  const resultDiv = document.getElementById('result');
+
+  // Clear previous result
+  resultDiv.innerHTML = "Unleashing the Kombat...";
+
+  // Run the search asynchronously to prevent UI blocking
+  setTimeout(() => {
+    const answer = findSmallestNumber(targetDigits, patternDigits);
+    if (answer !== null) {
+      resultDiv.innerHTML = `
+        <strong>Answer:</strong> The smallest number is <span style="color:#ff0000;">${answer}</span>.<br/>
+        <em>Check: ${answer}^2 = ${answer * answer}</em>
+      `;
+    } else {
+      resultDiv.innerHTML = "No answer found within range!";
+    }
+  }, 100);
+});
+
+// Function to find the smallest number whose square ends with specific digits
+function findSmallestNumber(target, pattern) {
+  const modulus = Math.pow(10, target.toString().length);
+  for (let n = 1; n < modulus; n++) {
+    if ((n * n) % modulus === pattern) {
+      return n;
+    }
+  }
+  return null; // if no number found
+}
