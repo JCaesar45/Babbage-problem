@@ -1,0 +1,9 @@
+function babbage(targetLastDigits, pattern) {
+  const modulus = 1_000_000;
+  for (let n = 1; n <= modulus; n++) {
+    if ((n * n) % modulus === pattern) {
+      return n;
+    }
+  }
+  return null; // In case no such number is found
+}
